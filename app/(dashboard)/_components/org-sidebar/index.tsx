@@ -16,7 +16,7 @@ const font = Poppins({
 
 export default function OrgSidebar() {
   const searchParams = useSearchParams();
-  const favorite = searchParams.get("favorite");
+  const favorite = searchParams.get("favorites");
   return (
     <div className="hidden lg:flex flex-col gap-y-6 w-[12.75rem] pl-5 pt-5">
       <Link href="/">
