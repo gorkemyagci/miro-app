@@ -21,7 +21,7 @@ export default function Item({ id, name, imageUrl }: ItemProps) {
     setActive({ organization: id });
   };
   return (
-    <div className="aspect-square relative">
+    <div className="aspect-square relative z-[999]">
       <Hint label={name} side="right" align="start" sideOffset={18}>
         <Image
           src={imageUrl}

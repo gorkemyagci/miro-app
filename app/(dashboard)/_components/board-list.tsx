@@ -9,6 +9,7 @@ import { useApiMutation } from "@/hooks/use-mutation-api";
 import { toast } from "sonner";
 import BoardCard from "./board-card";
 import { NewBoardButton } from "./new-board-button";
+import { useRouter } from "next/navigation";
 
 interface BoardListProps {
   orgId: string;
@@ -21,6 +22,7 @@ interface BoardListProps {
 export default function BoardList({ orgId, query }: BoardListProps) {
   const { organization } = useOrganization();
   const { mutate, loading } = useApiMutation(api.board.create);
+  const router = useRouter();
   const createBoard = () => {
     if (!organization) return;
     mutate({
@@ -29,12 +31,13 @@ export default function BoardList({ orgId, query }: BoardListProps) {
     })
       .then((id) => {
         toast.success("Board created successfully");
+        router.push(`/board/${id}`);
       })
       .catch((err) => {
         toast.error("Failed to create board");
       });
   };
-  const data = useQuery(api.boards.get, { orgId });
+  const data = useQuery(api.boards.get, { orgId, ...query });
   if (data === undefined)
     return (
       <div>
@@ -129,7 +132,7 @@ export default function BoardList({ orgId, query }: BoardListProps) {
             authorName={board.authorName}
             createdAt={board._creationTime}
             orgId={board.orgId}
-            isFavorite={false}
+            isFavorite={board.isFavorite}
             imageUrl={board.imageUrl}
           />
         ))}
