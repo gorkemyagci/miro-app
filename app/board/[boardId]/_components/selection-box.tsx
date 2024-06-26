@@ -10,7 +10,7 @@ interface SelectionBoxProps {
 
 const HANDLE_WIDTH = 8;
 
-export const SelectionBox = memo(
+export const SelectionBoxComponent = memo(
   ({ onResizeHandlePointerDown }: SelectionBoxProps) => {
     const soleLayerId = useSelf((me) =>
       me.presence.selection.length === 1 ? me.presence.selection[0] : null
@@ -177,3 +177,6 @@ export const SelectionBox = memo(
     );
   }
 );
+
+SelectionBoxComponent.displayName = "SelectionBox";
+export const SelectionBox = memo(SelectionBoxComponent);

@@ -9,7 +9,7 @@ interface CursorProps {
   connectionId: number;
 }
 
-export const Cursor = memo(({ connectionId }: CursorProps) => {
+const CursorComponent = ({ connectionId }: CursorProps) => {
   const info = useOther(connectionId, (user) => user?.info);
   const cursor = useOther(connectionId, (user) => user.presence.cursor);
   const name = info?.name || "Anonymous";
@@ -43,4 +43,8 @@ export const Cursor = memo(({ connectionId }: CursorProps) => {
       </div>
     </foreignObject>
   );
-});
+};
+
+CursorComponent.displayName = "Cursor";
+
+export const Cursor = memo(CursorComponent);
